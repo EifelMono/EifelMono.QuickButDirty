@@ -12,10 +12,17 @@ public class TVO : MvvmObject {
         public MvvmProperty<ScanCodeType> Type { get; set; } = MvvmProperty.Create<ScanCodeType>();
 	public MvvmProperty<string> Code { get; set; } = MvvmProperty.Create<string>();
 }
+
+public ObservableCollection<TVO> ScanCodes { get;set; } = new ObservableCollection<TVO>();
+
+:
+ BindingContext = this;
+:
+
 ```
 
 ```xml
-<ListView Grid.Row="1" ItemsSource="{Binding Data.ScanCodes}" ItemSelected="ListView_ItemSelected">
+<ListView Grid.Row="1" ItemsSource="{Binding ScanCodes}" ItemSelected="ListView_ItemSelected">
         <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
