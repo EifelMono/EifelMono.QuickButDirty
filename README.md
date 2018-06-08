@@ -16,7 +16,7 @@ public class TVO : MvvmObject {
 public ObservableCollection<TVO> ScanCodes { get;set; } = new ObservableCollection<TVO>();
 
 :
- BindingContext = this;
+BindingContext = this;
 :
 
 ```
