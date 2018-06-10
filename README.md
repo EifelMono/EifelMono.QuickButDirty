@@ -30,7 +30,10 @@
 	}
 ```
 :
+   
+## Extenstions
 
-
+* T Pipe<T>(this T value, Action<T> action)
+* T Pipe<T>(this T value, Func<T, T> function);
 
 
