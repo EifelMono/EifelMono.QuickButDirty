@@ -4,22 +4,22 @@ using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace EifelMono.QuickButDirty.Mvvm
+namespace EifelMono.QuickButDirty.Bindings
 {
-    public class MvvmProperty
+    public class BindingProperty
     {
         public string PropertyName { get; set; }
-        public IMvvmOnPropertyChanged MvvmParent { get; set; } = null;
+        public IBindingObject ParentBindingObject { get; set; } = null;
         public void OnPropertyChanged(string propertyName = null) =>
-            MvvmParent?.OnPropertyChanged(propertyName ?? PropertyName);
+            ParentBindingObject?.OnPropertyChanged(propertyName ?? PropertyName);
         public void RefreshAll() => OnPropertyChanged(string.Empty);
-        public static MvvmProperty<T> Create<T>([CallerMemberName]string propertyName = "") where T : IComparable
-        {
-            return new MvvmProperty<T>() { PropertyName = propertyName };
-        }
     }
-    public class MvvmProperty<T> : MvvmProperty where T : IComparable
+    public class BindingProperty<T> : BindingProperty where T : IComparable
     {
+        public BindingProperty([CallerMemberName]string propertyName = "")
+        {
+            PropertyName = propertyName;
+        }
         protected T _Value = default(T);
         public T LastValue = default(T);
         protected bool First = true;
@@ -32,7 +32,7 @@ namespace EifelMono.QuickButDirty.Mvvm
                     if (value.CompareTo(_Value) != 0 || First)
                     {
                         First = false;
-			LastValue = _Value;
+                        LastValue = _Value;
                         _Value = value;
                         OnPropertyChanged();
                         OnChanged?.Invoke(LastValue, value);
@@ -46,12 +46,21 @@ namespace EifelMono.QuickButDirty.Mvvm
                 }
             }
         }
-        public Action<T, T> OnChanged { get; set; }
 
-        public MvvmProperty<T> DoOnChanged(Action<T, T> onChanged)
+        public delegate void OnChangedAction(T oldValue, T newValue);
+        public OnChangedAction OnChanged { get; set; }
+
+        public BindingProperty<T> SetOnChanged(OnChangedAction onChanged)
         {
             OnChanged = onChanged;
             return this;
         }
+        public BindingProperty<T> SetValue(T setValue)
+        {
+            Value = setValue;
+            return this;
+        }
+
+        public BindingProperty<T> Default(T defaultValue= default(T)) => SetValue(defaultValue);
     }
 }

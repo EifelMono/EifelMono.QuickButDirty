@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows.Input;
 
-namespace EifelMono.QuickButDirty.Mvvm {
-    public interface IMvvmOnPropertyChanged {
+namespace EifelMono.QuickButDirty.Bindings {
+    public interface IBindingObject {
 	void OnPropertyChanged(string propertyName);
     }
    

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EifelMono.QuickButDirty.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -6,39 +7,35 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace EifelMono.QuickButDirty.Mvvm
+namespace EifelMono.QuickButDirty.Bindings
 {
-    public class MvvmObject : INotifyPropertyChanged, IMvvmOnPropertyChanged
+    public class BindingObject : INotifyPropertyChanged, IBindingObject
     {
-        public MvvmObject()
+        public BindingObject()
         {
-            foreach (var mvvmProperty in MvvmProperties)
-            {
-                mvvmProperty.MvvmParent = this;
-            }
+            MvvmProperties.ForEach(p => p.ParentBindingObject = this);
         }
 
         #region MvvmProperties
-        protected List<MvvmProperty> _MvvmProperties = null;
-        public List<MvvmProperty> MvvmProperties
+        protected List<BindingProperty> _MvvmProperties = null;
+        public List<BindingProperty> MvvmProperties
         {
             get
             {
-                if (_MvvmProperties == null)
+                return _MvvmProperties ?? (_MvvmProperties = new List<BindingProperty>()).Pipe((_mvvmProperties) =>
                 {
-                    _MvvmProperties = new List<MvvmProperty>();
                     var properties = this.GetType()
                     .GetProperties(BindingFlags.Instance | BindingFlags.Public)
-                    .Where(x => x.PropertyType.IsSubclassOf(typeof(MvvmProperty)));
+                    .Where(x => x.PropertyType.IsSubclassOf(typeof(BindingProperty)));
                     foreach (var p in properties)
                     {
-                        var identifier = (MvvmProperty)(p.GetValue(this, null));
+                        var identifier = (BindingProperty)(p.GetValue(this, null));
                         if (identifier != null)
                             if (!_MvvmProperties.Contains(identifier))
                                 _MvvmProperties.Add(identifier);
                     }
-                }
-                return _MvvmProperties;
+
+                });
             }
         }
         #endregion
