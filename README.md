@@ -1,18 +1,35 @@
 # EifelMono.QuickButDirty
 
-## Mvvm
+## Bindings
 
-    ```csharp
-public class TVO : MvvmObject {
-	public TVO(ScanCodeType type, string code)
+### Xaml
+:
+```xml
+    <StackPanel>
+        <TextBox Text="{Binding Data.Name.Value}" />
+        <TextBox Text="{Binding Data.TimeStamp.Value}" />
+    </StackPanel>
+```
+:
+
+### Code
+:
+```csharp
+
+    public class BindingData : BindingObject {
+
+    public BindingProperty<String> Name { get; set; } = new BindingProperty<String>();
+	public BindingProperty<DateTime> TimeStamp { get; set; } = new BindingProperty<DateTime>();
+
+    BindingData Data { get; set; }
+
+    public MainWindow()
 	{
-		Type.Value = type;
-		Code.Value = code;
+	    InitializeComponent();
+	    DataContext = Data = new BindingData();
 	}
-    public MvvmProperty<ScanCodeType> Type { get; set; } = new MvvmProperty<ScanCodeType>();
-	public MvvmProperty<string> Code { get; set; } = new MvvmProperty<string>();
-}
-    ```
+```
+:
 
 
 
