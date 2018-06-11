@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="TestForms.MainPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:TestForms">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Text="EifelMono.QuickButDirty" />
+        <StackLayout Grid.Row="1">
+            <Label Text="{Binding CountDown.Value}" />
+            <ProgressBar Progress="{Binding CountDown.Value}" />
+            <Label Text="{Binding TimeStamp.Value}" />
+            <Label Text="{Binding Address.Name.Value}" />
+            <Label Text="{Binding Address.LastName.Value}" />
+            <Button Command="{Binding CommandChangeEntries}" Text="Change" />
+            <Button Command="{Binding CommandAddList}" Text="Add to List" />
+            <Button Command="{Binding CommandSetListTimestamp}" Text="Timestamp top List" />
+        </StackLayout>
+        <ListView Grid.Row="2" ItemsSource="{Binding Addresses}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout>
+                            <Label Text="{Binding Name.Value}" />
+                            <Label Text="{Binding LastName.Value}" />
+                            <Label Text="{Binding TimeStamp.Value}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
+</ContentPage>

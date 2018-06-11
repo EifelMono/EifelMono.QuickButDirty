@@ -1,0 +1,8 @@
+﻿<Application
+    x:Class="TestForms.UWP.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TestForms.UWP"
+    RequestedTheme="Light">
+
+</Application>

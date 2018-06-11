@@ -1,5 +1,5 @@
-﻿using EifelMono.QuickButDirty.Bindings;
-using EifelMono.QuickButDirty.Extensions;
+﻿using EifelMono.QuickButDirty.Binding;
+using EifelMono.QuickButDirty.Extension;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 
 
-namespace TestNativeWpf {
+namespace TestNativeWPF {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -40,11 +40,11 @@ namespace TestNativeWpf {
 		    item.LastName.Value = "Klapperich";
 		});
 
-	    private ObservableCollection<AddressItem> _Addresses = null;
-	    public ObservableCollection<AddressItem> Addresses {
+	    private BindingCollection<AddressItem> _Addresses = null;
+	    public BindingCollection<AddressItem> Addresses {
 		get {
 		    if (_Addresses == null) {
-			_Addresses = new ObservableCollection<AddressItem>
+			_Addresses = new BindingCollection<AddressItem>
 			{
 			    new AddressItem("Karl", "Wurst"),
 			    new AddressItem("Hans", "Dampf"),
@@ -109,7 +109,7 @@ namespace TestNativeWpf {
 	public MainWindow()
 	{
 	    InitializeComponent();
-	    DataContext = Data = new BindingData();
+	    DataContext = Data= new BindingData();
 	    RunLoop();
 	}
     }

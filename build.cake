@@ -1,0 +1,44 @@
+///////////////////////////////////////////////////////////////////////////////
+// ARGUMENTS
+///////////////////////////////////////////////////////////////////////////////
+
+var target = Argument("target", "Default");
+var configuration = Argument("configuration", "Release");
+
+///////////////////////////////////////////////////////////////////////////////
+// SETUP / TEARDOWN
+///////////////////////////////////////////////////////////////////////////////
+
+Setup(ctx =>
+{
+   // Executed BEFORE the first task.
+   Information("Running tasks...");
+});
+
+Teardown(ctx =>
+{
+   // Executed AFTER the last task.
+   Information("Finished running tasks.");
+});
+
+///////////////////////////////////////////////////////////////////////////////
+// TASKS
+///////////////////////////////////////////////////////////////////////////////
+
+public static void FileTouch(FilePath file)
+{
+}
+
+Task("Default")
+.Does(() => {
+    foreach(var file in GetFiles("./**/*"))
+    {
+        try {
+            Information(file);
+            System.IO.File.SetLastWriteTimeUtc(file.FullPath, System.DateTime.UtcNow);
+        }
+        catch { }
+    }
+});
+
+RunTarget(target);

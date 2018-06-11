@@ -3,14 +3,22 @@
 ## Bindings
 
 ### Xaml
-:
+
+#### WPF
 ```xml
     <StackPanel>
         <TextBox Text="{Binding Data.Name.Value}" />
         <TextBox Text="{Binding Data.TimeStamp.Value}" />
     </StackPanel>
 ```
-:
+
+#### Xamarin.Forms
+```xml
+    <StackLayout>
+        <Label Text="{Binding Data.Name.Value}" />
+        <Label Text="{Binding Data.TimeStamp.Value}" />
+    </StackLayout>
+
 
 ### Code
 :
@@ -26,7 +34,10 @@
     public MainWindow()
 	{
 	    InitializeComponent();
+        // WPF
 	    DataContext = Data = new BindingData();
+        // Xamarin.Forms
+        BindingContext = = Data = new BindingData();
 	}
 ```
 :

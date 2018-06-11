@@ -1,7 +1,7 @@
-﻿<Application x:Class="TestNativeWpf.App"
+﻿<Application x:Class="TestNativeWPF.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:TestNativeWpf"
+             xmlns:local="clr-namespace:TestNativeWPF"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          
