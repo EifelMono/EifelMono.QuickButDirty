@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="TestForms.MainPage"
     xmlns="http://xamarin.com/schemas/2014/forms"
@@ -14,7 +14,7 @@
         <Label Text="EifelMono.QuickButDirty" />
         <StackLayout Grid.Row="1">
             <Label Text="{Binding CountDown.Value}" />
-            <ProgressBar Progress="{Binding CountDown.Value}" />
+            <ProgressBar Progress="{Binding Progress.Value}" />
             <Label Text="{Binding TimeStamp.Value}" />
             <Label Text="{Binding Address.Name.Value}" />
             <Label Text="{Binding Address.LastName.Value}" />
@@ -22,10 +22,10 @@
             <Button Command="{Binding CommandAddList}" Text="Add to List" />
             <Button Command="{Binding CommandSetListTimestamp}" Text="Timestamp top List" />
         </StackLayout>
-        <ListView Grid.Row="2" ItemsSource="{Binding Addresses}">
+        <ListView Grid.Row="2" ItemsSource="{Binding Addresses}" HasUnevenRows="true">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <ViewCell Height="100">
                         <StackLayout>
                             <Label Text="{Binding Name.Value}" />
                             <Label Text="{Binding LastName.Value}" />

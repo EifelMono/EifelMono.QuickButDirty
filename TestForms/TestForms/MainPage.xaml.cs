@@ -13,7 +13,7 @@ using System.Diagnostics;
 namespace TestForms {
     public partial class MainPage : ContentPage {
 
-	public class AddressItem : BindingObject {
+	public class AddressItem : BindingClass {
 	    public AddressItem() { }
 	    public AddressItem(string name, string lastName) : this()
 	    {
@@ -31,7 +31,7 @@ namespace TestForms {
 		throw new NotImplementedException();
 	    }
 	}
-	public class BindingData : BindingObject {
+	public class BindingData : BindingClass {
 	    public BindingProperty<DateTime> TimeStamp { get; set; }
 		= new BindingProperty<DateTime>()
 		.Default(DateTime.MinValue);
@@ -60,7 +60,8 @@ namespace TestForms {
 		}
 	    }
 
-	    public BindingProperty<int> CountDown { get; set; } = new BindingProperty<int>();
+	    public BindingProperty<double> Progress { get; set; } = new BindingProperty<double>();
+
 	    ICommand _CommandChangeEntries = null;
 	    public ICommand CommandChangeEntries {
 		get {
@@ -70,8 +71,8 @@ namespace TestForms {
 		    }));
 		}
 	    }
-	    ICommand _CommandAddList;
 
+	    ICommand _CommandAddList;
 	    public ICommand CommandAddList {
 		get {
 		    return _CommandAddList ?? (_CommandAddList = new Xamarin.Forms.Command(() => {
@@ -81,7 +82,6 @@ namespace TestForms {
 	    }
 
 	    public ICommand _CommandSetListTimestamp;
-
 	    public ICommand CommandSetListTimestamp {
 		get {
 		    return _CommandSetListTimestamp ?? (_CommandSetListTimestamp = new Xamarin.Forms.Command(() => {
@@ -100,7 +100,7 @@ namespace TestForms {
 	{
 	    Task.Run(async () => {
 		for (int i = 100; i >= 0; i = i - 10) {
-		    Data.CountDown.Value = i;
+		    Data.Progress.Value = ((double)i)/100;
 		    await Task.Delay(TimeSpan.FromSeconds(1));
 		}
 
